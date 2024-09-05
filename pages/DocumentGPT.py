@@ -23,10 +23,10 @@ st.set_page_config(
 
 
 with st.sidebar:
-    OPENAI_API_KEY = st.text_input("Enter your Open API Key")
+    api_key = st.text_input("Enter your Open API Key")
     file = ""
-    if OPENAI_API_KEY:
-        st.write(f"API Key : {OPENAI_API_KEY}")
+    if api_key:
+        st.write(f"API Key : {api_key}")
         file = st.file_uploader(":red[**Upload a .txt .pdf or .docx file.**]",type=["pdf","txt","docx"])
 
 
@@ -43,13 +43,13 @@ class ChatCallbackHandler(BaseCallbackHandler):
         self.message += token
         self.message_box.markdown(self.message)
 
-llm = ChatOpenAI(openai_api_key=OPENAI_API_KEY,
+llm = ChatOpenAI(openai_api_key=api_key,
                  temperature = 0.1,
                  streaming=True,
                  callbacks=[ChatCallbackHandler()])
 
 @st.cache_resource(show_spinner="Embedding file...") #동일한 file 일 경우, 중복동작하지 않고 이전 값을 return함
-def embed_file(file):
+def embed_file(file,api_key):
     file_content = file.read()
     file_path = f"./.cache/files/{file.name}"
     folder_path = os.path.dirname(file_path)
@@ -65,7 +65,7 @@ def embed_file(file):
     )
     loader = UnstructuredFileLoader(file_path)
     docs = loader.load_and_split(text_splitter=splitter)
-    embeddings = OpenAIEmbeddings()
+    embeddings = OpenAIEmbeddings(openai_api_key=api_key)
     cached_embeddings = CacheBackedEmbeddings.from_bytes_store(embeddings,cache_dir)
     vectorstore = FAISS.from_documents(docs,cached_embeddings)
     retriever = vectorstore.as_retriever()
@@ -107,7 +107,7 @@ st.title("Document GPT")
 
 
 if file:
-    retriever = embed_file(file)
+    retriever = embed_file(file,api_key)
 
     send_message("I'm ready! Ask away!","ai",save=False)
     paint_history()
