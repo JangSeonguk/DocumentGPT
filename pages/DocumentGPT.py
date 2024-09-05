@@ -11,6 +11,7 @@ from langchain.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnableLambda,RunnablePassthrough
 from langchain.chat_models import ChatOpenAI
 from langchain.callbacks.base import BaseCallbackHandler
+import os
 
 
 
@@ -18,6 +19,8 @@ st.set_page_config(
     page_title="DocumentGPT",
     page_icon="📃",
 )
+
+
 
 with st.sidebar:
     OPENAI_API_KEY = st.text_input("Enter your Open API Key")
@@ -50,6 +53,9 @@ llm = ChatOpenAI(model="gpt-4o",
 def embed_file(file):
     file_content = file.read()
     file_path = f"./.cache/files/{file.name}"
+    folder_path = os.path.dirname(file_path)
+    if not os.path.exists(folder_path):
+        os.makedirs(folder_path)
     with open(file_path,"wb") as f:
         f.write(file_content)
     cache_dir = LocalFileStore(f"./.cache/embeddings/{file.name}")
