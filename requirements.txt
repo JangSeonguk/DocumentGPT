@@ -95,7 +95,6 @@ langchain-core==0.2.38
 langchain-openai==0.1.23
 langchain-text-splitters==0.2.4
 langcodes==3.3.0
-langsmith==0.0.52
 layoutparser==0.3.4
 loguru==0.7.2
 lxml==4.9.3
