@@ -9,15 +9,9 @@ st.markdown(
     """
 # Hello!
             
-Welcome to my FullstackGPT Portfolio!
-            
-Here are the apps I made:
-            
-- [x] [DocumentGPT](/DocumentGPT)
-- [ ] [PrivateGPT](/PrivateGPT)
-- [ ] [QuizGPT](/QuizGPT)
-- [ ] [SiteGPT](/SiteGPT)
-- [ ] [MeetingGPT](/MeetingGPT)
-- [ ] [InvestorGPT](/InvestorGPT)
+Welcome to **Document GPT**
+
+Document GPT will analyze your documentation for you!
+
 """
 )
