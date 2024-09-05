@@ -43,8 +43,7 @@ class ChatCallbackHandler(BaseCallbackHandler):
         self.message += token
         self.message_box.markdown(self.message)
 
-llm = ChatOpenAI(model="gpt-4o",
-                 api_key=OPENAI_API_KEY,
+llm = ChatOpenAI(api_key=OPENAI_API_KEY,
                  temperature = 0.1,
                  streaming=True,
                  callbacks=[ChatCallbackHandler()])
