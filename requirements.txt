@@ -124,7 +124,7 @@ onnxruntime==1.16.0
 openai>=1.40.0,<2.0.0
 opencv-python==4.8.0.76
 openpyxl==3.1.2
-orjson==3.9.9
+orjson
 overrides==7.4.0
 packaging==23.2
 pandas==2.1.0
